@@ -1,0 +1,30 @@
+{
+  "name": "rolling-restaurant-proyecto-final-backend",
+  "version": "1.0.0",
+  "description": "backend con node",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel src/index.js -d dist",
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js"},
+  "keywords": [
+    "backend",
+    "node",
+    "js",
+    "rolling"
+  ],
+  "author": "Aramayo luis",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+}
