@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const {Schema} = mongoose
 
 const productSchema = new Schema({
-id:String,
+id:String,    
 image:String,
 name:String,
 description:String,

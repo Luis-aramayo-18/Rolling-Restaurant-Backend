@@ -8,7 +8,7 @@ export const validateContent = (type,body) =>{
     const expectedKeys = keys[type]
 
     //compruebo cantidad de datos
-    if(expectedKeys.length !== bodyKeys){
+    if(expectedKeys.length !== bodyKeys.length){
         return false;
     }
 

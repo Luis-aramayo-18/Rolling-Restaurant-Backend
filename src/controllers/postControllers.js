@@ -1,9 +1,12 @@
 import { randomID } from "../helpers/randomID"
 import { validateContent } from "../helpers/validateContent"
+import { validateData } from "../helpers/validateData"
 import ProductDB from "../models/productSchema"
 
 export const postProduct = async (req,res)=>{
     const body =  req.body
+
+    //validar contenido
 
     if(!validateContent("POST_PRODUCT",body)){
 
@@ -12,6 +15,17 @@ export const postProduct = async (req,res)=>{
         })
         return
     }
+
+    //validar campo x campo
+
+    if(!validateData(body)){
+        res.status(400).json({
+            message:"campos invalidos 2"
+        })
+        return
+    }
+
+    //datos validos-guardar producto
 
     const newProduct = new ProductDB({
         id:randomID(),
