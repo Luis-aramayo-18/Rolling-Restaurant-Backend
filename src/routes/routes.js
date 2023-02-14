@@ -1,5 +1,5 @@
 import express from "express";
-import { getProducts } from "../controllers/getControllers";
+import { getProduct, getProducts } from "../controllers/getControllers";
 import { postProduct } from "../controllers/postControllers";
 
 
@@ -7,6 +7,7 @@ export const router = express.Router();
 
 //RUTAS GET
 router.get("/products",getProducts)
+router.get("/product/:id",getProduct)
 
 //RUTAS POST
 router.post("/product",postProduct);

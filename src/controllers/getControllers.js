@@ -7,3 +7,14 @@ export const getProducts = async (req,res)=>{
         data:data,
     })
 }
+
+export const getProduct = async (req,res)=>{
+    const params = req.params
+    const {id} = params
+    const data = await ProductsDB.findOne({
+        id
+    })  
+    res.json({
+        data:data,
+    })
+}
