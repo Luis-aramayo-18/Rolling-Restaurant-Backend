@@ -1,6 +1,6 @@
 import { randomID } from "../helpers/randomID"
-import { validateContent } from "../helpers/validateContent"
-import { validateData } from "../helpers/validateData"
+import { validateContent, validateContentUser } from "../helpers/validateContent"
+import { validateData, validateDataUser } from "../helpers/validateData"
 import ProductDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
 
@@ -62,6 +62,26 @@ export const postUser = async (req,res)=>{
     const body = req.body
     const password = body.password
     const cryptedPassword = bcrypt.hashSync(password,10)
+
+    //validar contenido
+
+    if(!validateContentUser("POST_USER",body)){
+
+        res.status(400).json({
+            message:"campos invalidos"
+        })
+        return
+    }
+
+    //validar campo x campo
+
+    if(!validateDataUser(body)){
+        res.status(400).json({
+            message:"campos invalidos 2"
+        })
+        return
+    }
+
 
     const newUser = new UserDB({
         id:randomID(),

@@ -1,3 +1,5 @@
+//---------------------------VALIDATE PRODUCT VALUE
+
 export const validateData = (body) => {
 
     const values = Object.entries(body)
@@ -21,6 +23,41 @@ export const validateData = (body) => {
         case "price":
         if(isNaN(value)) return false
         if(value < 0) return false
+        break
+
+        default:
+        break;
+    }    
+    }
+
+    return true
+}
+
+//------------------------------VALIDATE USER VALUE
+
+export const validateDataUser = (body) => {
+
+    const values = Object.entries(body)
+
+        for (let i = 0; i<values.length; i++){
+        const key = values[i][0]
+        const value = values[i][1]
+
+    switch(key){
+        case "email":
+        const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        if(!emailReg.test(value)) return false
+        
+        break;
+
+        case "lastName":
+        case "name":
+        if(!isNaN(value)) return false
+        if(value.trim().length < 2) return false 
+        break;
+
+        case "password":
+        if(value.trim().length < 2) return false 
         break
 
         default:
