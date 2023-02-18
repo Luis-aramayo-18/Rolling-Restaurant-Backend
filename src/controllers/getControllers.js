@@ -1,4 +1,5 @@
 import ProductsDB from "../models/productSchema"
+import UserDB from "../models/userSchema"
 
 export const getProducts = async (req,res)=>{
     const data = await ProductsDB.find()
@@ -16,5 +17,15 @@ export const getProduct = async (req,res)=>{
     })  
     res.json({
         data:data,
+    })
+}
+
+//----------USERS
+
+export const getUsers = async (req,res)=>{
+    const data = await UserDB.find()
+
+    res.json({
+        data:data
     })
 }
