@@ -1,8 +1,9 @@
 import { randomID } from "../helpers/randomID"
-import { validateContent, validateContentUser } from "../helpers/validateContent"
+import { validateContent, validateContentOrder, validateContentUser } from "../helpers/validateContent"
 import { validateData, validateDataUser } from "../helpers/validateData"
 import ProductDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
+import OrderDB from "../models/orderSchema"
 
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
@@ -39,6 +40,7 @@ export const postProduct = async (req,res)=>{
         name: body.name,
         description: body.description,
         price: body.price,
+        categoria:body.categoria
     })
 
     try {
@@ -143,4 +145,58 @@ export const postLogin = async(req,res)=>{
     res.json({
         token
     })
+}
+
+//-----------------------------ORDER
+
+export const postOrder = async (req,res)=>{
+    const body =  req.body
+
+    //validar contenido
+
+    if(!validateContentOrder("POST_ORDER",body)){
+
+        res.status(400).json({
+            message:"campos invalidos"
+        })
+        return
+    }
+
+    //validar campo x campo
+
+    if(!validateData(body)){
+        res.status(400).json({
+            message:"campos invalidos 2"
+        })
+        return
+    }
+
+    //datos validos-guardar producto
+
+    const newOrder = new OrderDB({
+        id:randomID(),
+        mesa: body.mesa,
+        categoria: body.categoria,
+        name: body.name,
+        description: body.description,
+        cantidad:body.cantidad,
+        price:body.price,
+        subtot:body.subtot,
+        estado:body.estado,
+        email:body.email,
+        isActive:body.isActive
+    })
+
+    try {
+        await newOrder.save()
+        res.json({
+        message: "Pedido tomado exitosamente"
+    })
+
+    } catch (err) {
+        res.status(500).json({
+            message: "ERROR " + err
+        })
+    }
+    
 }

@@ -2,6 +2,7 @@ import { validateContent, validateContentUser } from "../helpers/validateContent
 import { validateData, validateDataUser } from "../helpers/validateData";
 import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
+import OrderDB from "../models/orderSchema"
 
 
 //------------------------PRODUCT
@@ -80,6 +81,49 @@ export const putUser = async (req,res)=>{
 
     res.json({
         message:"Usuario actualizado",
+        updatedProduct: updated
+    })
+
+    } catch (err){
+        res.status(500).json({
+            message:"ERROR " + err
+        })
+    }
+}
+
+//-------------------------ORDER
+
+export const putOrder = async (req,res)=>{
+    const params = req.params;
+    const {id} = params
+    const body = req.body
+
+    //VALIDAMOS 
+
+      //validar cantidad de campos
+
+      if(!validateContentUser("POST_ORDER",body)){
+
+        res.status(400).json({
+            message:"campos invalidos"
+        })
+        return
+    }
+
+    //validar valores
+
+    if(!validateDataUser(body)){
+        res.status(400).json({
+            message:"campos invalidos 2"
+        })
+        return
+    }
+
+    try{
+    const updated = await OrderDB.findOneAndUpdate({id},body,{new:true,})
+
+    res.json({
+        message:"Pedido actualizado",
         updatedProduct: updated
     })
 

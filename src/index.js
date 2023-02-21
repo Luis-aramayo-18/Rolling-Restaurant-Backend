@@ -5,6 +5,8 @@ import dotenv from "dotenv"
 import { routerProducts } from "./routes/productRoutes";
 import { routerUsers } from "./routes/usersRoutes";
 import { routerAuth } from "./routes/authRoutes";
+import { routerOrder } from "./routes/orderRoutes";
+
 import "./database/database"
 
 dotenv.config()
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use(routerProducts);
 app.use(routerUsers);
 app.use(routerAuth)
+app.use(routerOrder)
 
 //Loop del servidor
 
