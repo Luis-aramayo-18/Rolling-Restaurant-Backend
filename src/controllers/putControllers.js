@@ -1,4 +1,4 @@
-import { validateContent, validateContentUser } from "../helpers/validateContent";
+import { validateContent, validateContentOrder, validateContentUser } from "../helpers/validateContent";
 import { validateData, validateDataUser } from "../helpers/validateData";
 import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
@@ -102,7 +102,7 @@ export const putOrder = async (req,res)=>{
 
       //validar cantidad de campos
 
-      if(!validateContentUser("POST_ORDER",body)){
+      if(!validateContentOrder("POST_ORDER",body)){
 
         res.status(400).json({
             message:"campos invalidos"
@@ -112,12 +112,12 @@ export const putOrder = async (req,res)=>{
 
     //validar valores
 
-    if(!validateDataUser(body)){
-        res.status(400).json({
-            message:"campos invalidos 2"
-        })
-        return
-    }
+    // if(!validateDataUser(body)){
+    //     res.status(400).json({
+    //         message:"campos invalidos 2"
+    //     })
+    //     return
+    // }
 
     try{
     const updated = await OrderDB.findOneAndUpdate({id},body,{new:true,})
