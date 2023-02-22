@@ -114,21 +114,14 @@ export const postLogin = async(req,res)=>{
     })
 
     //username incorrecto
-    if(!user){
+    if(!user || !bcrypt.compareSync(req.body.password, user.password)){
         res.status(401).json({
-            message: "Usuario no encontrado"
+            message: "Usuario o contraseña no valido"
         })
         return
     }
 
     //contraseña incorrecta
-    if (!bcrypt.compareSync(req.body.password, user.password)){
-
-        res.status(401).json({
-            message:"Contraseña incorrecta"
-        })
-        return
-    }
 
     const userInf = {
         name:user.name,
@@ -143,6 +136,7 @@ export const postLogin = async(req,res)=>{
     })
 
     res.json({
+        message:"Bienvenido",
         token
     })
 }
