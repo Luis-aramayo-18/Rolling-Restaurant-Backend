@@ -2,7 +2,11 @@ import  express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv"
-import { router } from "./routes/routes";
+import { routerProducts } from "./routes/productRoutes";
+import { routerUsers } from "./routes/usersRoutes";
+import { routerAuth } from "./routes/authRoutes";
+import { routerOrder } from "./routes/orderRoutes";
+
 import "./database/database"
 
 dotenv.config()
@@ -23,7 +27,10 @@ app.use(express.json());
 
 //Rutas
 
-app.use(router);
+app.use(routerProducts);
+app.use(routerUsers);
+app.use(routerAuth)
+app.use(routerOrder)
 
 //Loop del servidor
 
