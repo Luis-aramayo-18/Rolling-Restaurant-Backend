@@ -3,7 +3,6 @@ import { validateContent, validateContentOrder, validateContentUser } from "../h
 import { validateData, validateDataUser } from "../helpers/validateData"
 import ProductDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
-import OrderDB from "../models/orderSchema"
 
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
@@ -40,7 +39,8 @@ export const postProduct = async (req,res)=>{
         name: body.name,
         description: body.description,
         price: body.price,
-        categoria:body.categoria
+        categoria:body.categoria,
+        isActive:true
     })
 
     try {
@@ -61,6 +61,7 @@ export const postProduct = async (req,res)=>{
 
 export const postUser = async (req,res)=>{
 
+    const secretKey = process.env.JWT_KEY
     const body = req.body
     const password = body.password
     const cryptedPassword = bcrypt.hashSync(password,10)
@@ -90,13 +91,23 @@ export const postUser = async (req,res)=>{
         name:body.name,
         lastName:body.lastName,
         email:body.email,
-        password:cryptedPassword
+        password:cryptedPassword,
+        isAdmin:false
     });
 
     try {
             await newUser.save()
+
+            const token = jwt.sign({
+                name:req.body.name,
+                lastName:req.body.lastName
+            },secretKey,{
+                expiresIn:"1h"
+            })
+
             res.json({
-            message: "Usuario guardado exitosamente"
+            message: "Usuario guardado exitosamente",
+            token
         })
     } catch (err) {
         res.status(500).json({
@@ -109,31 +120,25 @@ export const postUser = async (req,res)=>{
 
 export const postLogin = async(req,res)=>{
 
+
     const user = await UserDB.findOne({
         email:req.body.email
     })
 
     //username incorrecto
-    if(!user){
+    if(!user || !bcrypt.compareSync(req.body.password, user.password)){
         res.status(401).json({
-            message: "Usuario no encontrado"
+            message: "Usuario o contraseña no valido"
         })
         return
     }
 
-    //contraseña incorrecta
-    if (!bcrypt.compareSync(req.body.password, user.password)){
-
-        res.status(401).json({
-            message:"Contraseña incorrecta"
-        })
-        return
-    }
 
     const userInf = {
         name:user.name,
         lastName:user.lastName,
-        email:user.email
+        email:user.email,
+        isAdmin:user.isAdmin
     }
 
     const secretKey = process.env.JWT_KEY
@@ -143,60 +148,7 @@ export const postLogin = async(req,res)=>{
     })
 
     res.json({
+        message:"Bienvenido",
         token
     })
-}
-
-//-----------------------------ORDER
-
-export const postOrder = async (req,res)=>{
-    const body =  req.body
-
-    //validar contenido
-
-    if(!validateContentOrder("POST_ORDER",body)){
-
-        res.status(400).json({
-            message:"campos invalidos"
-        })
-        return
-    }
-
-    //validar campo x campo
-
-    if(!validateData(body)){
-        res.status(400).json({
-            message:"campos invalidos 2"
-        })
-        return
-    }
-
-    //datos validos-guardar producto
-
-    const newOrder = new OrderDB({
-        id:randomID(),
-        mesa: body.mesa,
-        categoria: body.categoria,
-        name: body.name,
-        description: body.description,
-        cantidad:body.cantidad,
-        price:body.price,
-        subtot:body.subtot,
-        estado:body.estado,
-        email:body.email,
-        isActive:body.isActive
-    })
-
-    try {
-        await newOrder.save()
-        res.json({
-        message: "Pedido tomado exitosamente"
-    })
-
-    } catch (err) {
-        res.status(500).json({
-            message: "ERROR " + err
-        })
-    }
-    
 }

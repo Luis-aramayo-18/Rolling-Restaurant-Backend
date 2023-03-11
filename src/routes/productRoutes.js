@@ -10,9 +10,9 @@ export const routerProducts = express.Router();
 
 //RUTAS GET
 routerProducts.get("/products",isAuthenticated,getProducts)
-routerProducts.get("/product/:id",isAuthenticated,getProduct)
-routerProducts.get("/product/:categoria",isAuthenticated,getProductCategory)
-routerProducts.get("/product/:name",isAuthenticated,getProductName)
+routerProducts.get("/product/:id",getProduct)
+routerProducts.get("/product/:categoria",getProductCategory)
+routerProducts.get("/product/:name",getProductName)
 
 //RUTAS POST
 routerProducts.post("/product",isAuthenticated,postProduct);
