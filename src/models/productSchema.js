@@ -8,7 +8,8 @@ image:String,
 name:String,
 description:String,
 price:Number,
-categoria:String
+categoria:String,
+isActive:Boolean
 })
 
 export default mongoose.model("Products",productSchema)

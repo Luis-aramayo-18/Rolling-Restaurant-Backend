@@ -43,24 +43,3 @@ export const deleteUser = async (req,res)=>{
         })
     }
 }
-
-//----------------------------------ORDER
-
-export const deleteOrder = async (req,res)=>{
-    const params = req.params;
-    const {id} = params
-
-    try{
-    const deleted = await OrderDB.findOneAndDelete({id})
-
-    res.json({
-        message:"Pedido eliminado",
-        deletedProduct: deleted
-    })
-
-    } catch (err){
-        res.status(500).json({
-            message:"ERROR " + err
-        })
-    }
-}

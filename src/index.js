@@ -5,11 +5,11 @@ import dotenv from "dotenv"
 import { routerProducts } from "./routes/productRoutes";
 import { routerUsers } from "./routes/usersRoutes";
 import { routerAuth } from "./routes/authRoutes";
-import { routerOrder } from "./routes/orderRoutes";
+// import { routerOrder } from "./routes/orderRoutes";
 
 import "./database/database"
 
-dotenv.config()
+dotenv.config()  //permite utilizar las variables del .env
 
 //inicializamos express
 
@@ -17,11 +17,11 @@ const app = express();
 
 //Configuramos servidor
 
-app.set("PORT", process.env.PORT || 5000);
+app.set("PORT", process.env.PORT || 5000); //para que nuestro servidor se corra en la variable .env o p5000
 
 //Middlewares
 
-app.use(morgan("dev"));
+app.use(morgan("dev")); 
 app.use(cors());
 app.use(express.json());
 
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(routerProducts);
 app.use(routerUsers);
 app.use(routerAuth)
-app.use(routerOrder)
+// app.use(routerOrder)
 
 //Loop del servidor
 
