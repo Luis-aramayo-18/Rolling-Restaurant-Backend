@@ -1,8 +1,7 @@
-import { validateContent, validateContentOrder, validateContentUser } from "../helpers/validateContent";
+import { validateContent, validateContentUser } from "../helpers/validateContent";
 import { validateData, validateDataUser } from "../helpers/validateData";
 import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
-import OrderDB from "../models/orderSchema"
 
 
 //------------------------PRODUCT
