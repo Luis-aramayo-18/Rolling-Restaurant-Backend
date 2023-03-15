@@ -1,6 +1,5 @@
 import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
-import OrderDB from "../models/orderSchema"
 
 //-------------------PRODUCT
 

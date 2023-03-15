@@ -1,5 +1,5 @@
 import { randomID } from "../helpers/randomID"
-import { validateContent, validateContentOrder, validateContentUser } from "../helpers/validateContent"
+import { validateContent, validateContentUser } from "../helpers/validateContent"
 import { validateData, validateDataUser } from "../helpers/validateData"
 import ProductDB from "../models/productSchema"
 import UserDB from "../models/userSchema"

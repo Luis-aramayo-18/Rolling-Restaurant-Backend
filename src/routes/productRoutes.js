@@ -1,5 +1,5 @@
 import express from "express";
-import { getProduct, getProductCategory, getProductId, getProductName, getProducts } from "../controllers/getControllers";
+import { getProduct, getProductCategory, getProductName, getProducts } from "../controllers/getControllers";
 import { postProduct } from "../controllers/postControllers";
 import { deleteProduct } from "../controllers/deleteControllers";
 import { putProduct } from "../controllers/putControllers";
