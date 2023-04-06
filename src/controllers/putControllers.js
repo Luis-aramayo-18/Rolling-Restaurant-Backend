@@ -4,16 +4,11 @@ import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
 
 
-//------------------------PRODUCT
-
 export const putProduct = async (req,res)=>{
     const params = req.params;
     const {id} = params
     const body = req.body
 
-    //VALIDAMOS 
-
-      //validar cantidad de campos
 
       if(!validateContent("POST_PRODUCT",body)){
 
@@ -23,7 +18,6 @@ export const putProduct = async (req,res)=>{
         return
     }
 
-    //validar valores
 
     if(!validateData(body)){
         res.status(400).json({
@@ -47,16 +41,12 @@ export const putProduct = async (req,res)=>{
     }
 }
 
-//------------------------USER
 
 export const putUser = async (req,res)=>{
     const params = req.params;
     const {id} = params
     const body = req.body
 
-    //VALIDAMOS 
-
-      //validar cantidad de campos
 
       if(!validateContentUser("POST_USER",body)){
 
@@ -66,7 +56,6 @@ export const putUser = async (req,res)=>{
         return
     }
 
-    //validar valores
 
     if(!validateDataUser(body)){
         res.status(400).json({
