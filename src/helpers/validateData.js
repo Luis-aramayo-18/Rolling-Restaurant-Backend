@@ -1,4 +1,4 @@
-//---------------------------VALIDATE PRODUCT VALUE
+
 
 export const validateData = (body) => {
 
@@ -35,7 +35,6 @@ export const validateData = (body) => {
     return true
 }
 
-//------------------------------VALIDATE USER VALUE
 
 export const validateDataUser = (body) => {
 

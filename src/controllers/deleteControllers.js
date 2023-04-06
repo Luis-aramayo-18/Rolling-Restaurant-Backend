@@ -2,8 +2,6 @@ import ProductsDB from "../models/productSchema"
 import UserDB from "../models/userSchema"
 
 
-//------------------------PRODUCT
-
    export const deleteProduct = async (req,res)=>{
     const params = req.params;
     const {id} = params
@@ -23,7 +21,6 @@ import UserDB from "../models/userSchema"
     }
 }
 
-//----------------------USER
 
 export const deleteUser = async (req,res)=>{
     const params = req.params;

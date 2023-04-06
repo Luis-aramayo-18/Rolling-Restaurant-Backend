@@ -7,12 +7,10 @@ import UserDB from "../models/userSchema"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
-//-----------------PRODUCTOS
 
 export const postProduct = async (req,res)=>{
     const body =  req.body
 
-    //validar contenido
 
     if(!validateContent("POST_PRODUCT",body)){
 
@@ -22,7 +20,6 @@ export const postProduct = async (req,res)=>{
         return
     }
 
-    //validar campo x campo
 
     if(!validateData(body)){
         res.status(400).json({
@@ -31,7 +28,6 @@ export const postProduct = async (req,res)=>{
         return
     }
 
-    //datos validos-guardar producto
 
     const newProduct = new ProductDB({
         id:randomID(),
@@ -57,7 +53,6 @@ export const postProduct = async (req,res)=>{
     
 }
 
-//-------------------- USUARIOS
 
 export const postUser = async (req,res)=>{
 
@@ -66,7 +61,6 @@ export const postUser = async (req,res)=>{
     const password = body.password
     const cryptedPassword = bcrypt.hashSync(password,10)
 
-    //validar contenido
 
     if(!validateContentUser("POST_USER",body)){
 
@@ -76,7 +70,6 @@ export const postUser = async (req,res)=>{
         return
     }
 
-    //validar campo x campo
 
     if(!validateDataUser(body)){
         res.status(400).json({
@@ -116,7 +109,6 @@ export const postUser = async (req,res)=>{
     }
 }
 
-//--------------AUTH
 
 export const postLogin = async(req,res)=>{
 
@@ -125,7 +117,6 @@ export const postLogin = async(req,res)=>{
         email:req.body.email
     })
 
-    //username incorrecto
     if(!user || !bcrypt.compareSync(req.body.password, user.password)){
         res.status(401).json({
             message: "Usuario o contraseña no valido"
